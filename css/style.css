@@ -79,7 +79,7 @@ body{
 }
 @media(max-width:767px){
 	.search__field {
-		padding: 10px 15px 10px 10px;
+		padding: 10px 0 10px 10px;
 	}
 }
 .search__button{
@@ -148,13 +148,17 @@ body{
 	padding: 0 8%;
 	margin-left: 20px;
 }
+@media(max-width:767px){
+	.item__emoji {
+		margin-left: 0;
+	}
+}
 .item__emoji img{
 	max-width: 80%;
 }
 @media(max-width:767px){
 	.item__emoji img{
 		max-width: 100%;
-		padding-top: 10%;
 	}
 }
 .item__degree {
@@ -169,13 +173,18 @@ body{
 	.item__degree {
 		font-size: 32px;
 		font-weight: 600;
-		padding: 10% 0 10% 10%;
+		padding: 0 0 10% 10%;
 	}
 }
 .item__units{
 	position: relative;
 	top: -20px;
 	font-size: 18px;
+}
+@media(max-width:767px){
+	.item__units{
+		font-size: 14px;
+	}
 }
 .item__units a{
 	color: #073761;	
@@ -210,7 +219,7 @@ body{
 }
 @media(max-width:767px){
 	.item__time {
-		font-size: 13px;
+		font-size: 12px;
 		letter-spacing: 0.5px;
 		padding-bottom: 25%;
 	}
@@ -223,7 +232,6 @@ body{
 	padding-bottom: 7%;
 }
 
-
 .weather_days {
 	margin: 0 15px;
 }
@@ -231,10 +239,20 @@ body{
 	display: flex;
 	margin: 0 -5px;
 }
+@media(max-width:767px){
+	.weather_days__row {
+		margin: 0 -2px;
+	}
+}
 .weather_days__column {
 	flex: 0 1 20%;
 	display: flex;
 	padding: 0 5px;
+}
+@media(max-width:767px){
+	.weather_days__column {
+		padding: 0 2px;
+	}
 }
 .weather_days__item {
 	padding: 15%;
@@ -342,23 +360,33 @@ body{
 }
 @media(max-width:767px){
 	.days__body {
-		font-size: 10px;
+		font-size: 9px;
 	}
 }
 .body__row {
 	display: flex;
 	margin: 0 -2px;
 }
+@media(max-width:767px){
+	.body__row {
+		margin: 0 -1px;
+	}
+}
 .body__column {
 	flex: 0 0 50%;
 	padding: 10px 2px;
+}
+@media(max-width:767px){
+	.body__column {
+		padding: 10px 1px;
+	}
 }
 .body__emoji {
 	padding: 10% 0 15% 30%;
 }
 @media(max-width:767px){
 	.body__emoji {
-		padding: 10% 0 20% 25%;
+		padding: 10% 0 30% 25%;
 	}
 }
 .body__emoji:last-child {
@@ -366,7 +394,7 @@ body{
 }
 @media(max-width:767px){
 	.body__emoji:last-child {
-		padding: 60% 0 15% 30%;
+		padding: 60% 0 15% 25%;
 	}
 }
 .fa-solid {
@@ -380,8 +408,14 @@ body{
 	align-items: start;
 	color: #1E4162;
 }
-
-
+@media(max-width:767px){
+	.body__dagree,
+	.body__humidity,
+	.body__wind,
+	.body__rain {
+		padding: 10% 10% 20% 0;
+	}
+}
 
 .footer__row {
 	display: flex;
