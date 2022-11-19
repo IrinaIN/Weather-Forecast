@@ -213,7 +213,8 @@ function showPosition(position) {
 function getCurrentLocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(showPosition);
-  searchCity("Kyiv");
 }
 let currentLocationButton = document.querySelector(".search__current");
 currentLocationButton.addEventListener("click", getCurrentLocation);
+
+searchCity("Kyiv");
