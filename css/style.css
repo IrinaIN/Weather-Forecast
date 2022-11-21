@@ -180,14 +180,16 @@ body{
 	position: relative;
 	top: -20px;
 	font-size: 18px;
+	color: #0d7081;
 }
 @media(max-width:767px){
 	.item__units{
 		font-size: 14px;
 	}
 }
-.item__units a{
-	color: #073761;	
+.item__units.active{
+	color: #073b68;
+	cursor: default;	
 }
 .item__city {
 	color: #29669C;

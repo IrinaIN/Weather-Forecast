@@ -87,50 +87,6 @@ let tab = function () {
 };
 tab();
 
-// show city
-/*
-function showCity (event){
-    event.preventDefault();
-    let searchField = document.querySelector('.search__field');
-    let itemCity = document.querySelector('.item__city');
-    let newCity = searchField.value.toLowerCase().trim();
-    if (searchField.value){
-      itemCity.innerHTML = `${newCity}`;
-    }  
-}
-let form = document.querySelector('.search__body');
-form.addEventListener('submit', showCity);
-*/
-
-// celsius and fahrenhait
-/*let unitTemp = {
-  unit: "c",
-  temp: 10
-};
-let temp = document.querySelector(".item__value");
-function tempF(event) {
-  event.preventDefault();
-  if (unitTemp.unit === "c") {
-    unitTemp.temp = Math.round((unitTemp.temp * 9) / 5) + 32;
-    temp.innerHTML = unitTemp.temp;
-    unitTemp.unit = "f";
-  }
-}
-let linkF = document.querySelector("#fahrenhait");
-linkF.addEventListener("click", tempF);
-
-function tempC (event) {
-  event.preventDefault();
-  if (unitTemp.unit === "f") {
-    unitTemp.temp = Math.round(((unitTemp.temp - 32) * 5) / 9);
-    temp.innerHTML = unitTemp.temp;
-    unitTemp.unit = "c";
-  }
-}
-let linkC = document.querySelector("#celsius");
-linkC.addEventListener("click", tempC);
-*/
-
 // show current position temperature & temp conversion
 
 function weatherCondition(response) {
@@ -162,6 +118,8 @@ function weatherCondition(response) {
     event.preventDefault();
     let updateToFah = document.querySelector(".item__value");
     updateToFah.innerHTML = Math.round((temperature * 9) / 5) + 32;
+    linkC.classList.remove("active");
+    linkF.classList.add("active");
   }
   let linkF = document.querySelector("#fahrenhait");
   linkF.addEventListener("click", convertToF);
@@ -170,6 +128,8 @@ function weatherCondition(response) {
     event.preventDefault();
     let celsius = document.querySelector(".item__value");
     celsius.innerHTML = temperature;
+    linkC.classList.add("active");
+    linkF.classList.remove("active");
   }
   let linkC = document.querySelector("#celsius");
   linkC.addEventListener("click", convertToC);
