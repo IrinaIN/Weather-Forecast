@@ -230,6 +230,18 @@ body{
 	font-size: 12px;
 	letter-spacing: 1px;
 	padding-bottom: 7%;
+	text-transform: capitalize;
+}
+.item__info li:first-child {
+	font-weight: 600;
+	margin: 0 0 3% 0;
+	font-size: 14px;
+}
+@media(max-width:767px){
+	.item__info li:first-child {
+		font-weight: 700;
+		font-size: 12px;
+	}
 }
 
 .weather_days {

@@ -145,12 +145,8 @@ function weatherCondition(response) {
   mainTemp.innerHTML = temperature;
   itemCity.innerHTML = yourLocation;
 
-  let maxMinTemp = document.querySelector("#detail-temp");
-  maxMinTemp.innerHTML = `Hight <strong>${Math.round(
-    response.data.main.temp_max
-  )}°</strong> Low <strong>${Math.round(
-    response.data.main.temp_min
-  )}°</strong>`;
+  let description = document.querySelector("#detail-temp");
+  description.innerHTML = response.data.weather[0].description;
   let cityHumidity = document.querySelector("#humidity");
   cityHumidity.innerHTML = `Humidity: <strong> ${response.data.main.humidity} %</strong>`;
   let cityWind = document.querySelector("#wind");
