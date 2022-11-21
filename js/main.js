@@ -93,6 +93,11 @@ function weatherCondition(response) {
   let mainTemp = document.querySelector(".item__value");
   let itemCity = document.querySelector(".item__city");
   let yourLocation = response.data.name;
+  /*if (yourLocation.length > 7 ){
+    console.log(yourLocation);
+    yourLocation.style.fontSize = "12px";
+  }
+  */
   console.log(yourLocation);
   let temperature = Math.round(response.data.main.temp);
   console.log(temperature);
@@ -100,7 +105,7 @@ function weatherCondition(response) {
 
   mainTemp.innerHTML = temperature;
   itemCity.innerHTML = yourLocation;
-
+ 
   let description = document.querySelector("#detail-temp");
   description.innerHTML = response.data.weather[0].description;
   let cityHumidity = document.querySelector("#humidity");
@@ -114,6 +119,32 @@ function weatherCondition(response) {
     response.data.clouds.all
   )} %</strong>`;
 
+  let icon = document.querySelector("#icon");
+  let weatherIcon = response.data.weather[0].icon;
+  if (weatherIcon === "01d"){
+    icon.setAttribute("src", `image/8.png`);
+  } else if(weatherIcon === "01n"){
+    icon.setAttribute("src", `image/9.png`);
+  } else if(weatherIcon === "02d"){
+    icon.setAttribute("src", `image/6.png`);
+  } else if(weatherIcon === "02n"){
+    icon.setAttribute("src", `image/4.png`);
+  } else if(weatherIcon === "03d" || "03n" || "04d" || "04n"){
+    icon.setAttribute("src", `image/1.png`);
+  } else if(weatherIcon === "09d" || "09n"){
+    icon.setAttribute("src", `image/13.png`);
+  } else if(weatherIcon === "10d" || "10n"){
+    icon.setAttribute("src", `image/5.png`);
+  } else if(weatherIcon === "11d" || "11n"){
+    icon.setAttribute("src", `image/2.png`);
+  } else if(weatherIcon === "13d" || "13n"){
+    icon.setAttribute("src", `image/3.png`);
+  } else if(weatherIcon === "50d" || "50n"){
+    icon.setAttribute("src", `image/12.png`);
+  } 
+  icon.setAttribute("alt", response.data.weather[0].description);
+  console.log(response.data.weather[0].description);
+  
   function convertToF(event) {
     event.preventDefault();
     let updateToFah = document.querySelector(".item__value");
