@@ -93,11 +93,6 @@ function weatherCondition(response) {
   let mainTemp = document.querySelector(".item__value");
   let itemCity = document.querySelector(".item__city");
   let yourLocation = response.data.name;
-  /*if (yourLocation.length > 7 ){
-    console.log(yourLocation);
-    yourLocation.style.fontSize = "12px";
-  }
-  */
   console.log(yourLocation);
   let temperature = Math.round(response.data.main.temp);
   console.log(temperature);
