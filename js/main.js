@@ -94,13 +94,18 @@ function weatherCondition(response) {
   let itemCity = document.querySelector(".item__city");
   let yourLocation = response.data.name;
   console.log(yourLocation);
+
   let temperature = Math.round(response.data.main.temp);
   console.log(temperature);
   console.log(response);
 
   mainTemp.innerHTML = temperature;
   itemCity.innerHTML = yourLocation;
- 
+  if (yourLocation.length > 7){
+    console.log(yourLocation);
+    itemCity.style["font-size"] = '42px';
+  }
+
   let description = document.querySelector("#detail-temp");
   description.innerHTML = response.data.weather[0].description;
   let cityHumidity = document.querySelector("#humidity");
@@ -124,19 +129,36 @@ function weatherCondition(response) {
     icon.setAttribute("src", `image/6.png`);
   } else if(weatherIcon === "02n"){
     icon.setAttribute("src", `image/4.png`);
-  } else if(weatherIcon === "03d" || "03n" || "04d" || "04n"){
+  } else if(weatherIcon === "03d"){
     icon.setAttribute("src", `image/1.png`);
-  } else if(weatherIcon === "09d" || "09n"){
+  } else if(weatherIcon === "03n"){
+    icon.setAttribute("src", `image/1.png`);
+  } else if(weatherIcon === "04d"){
+    icon.setAttribute("src", `image/1.png`);
+  } else if(weatherIcon === "04n"){
+    icon.setAttribute("src", `image/1.png`);
+  } else if(weatherIcon === "09d"){
     icon.setAttribute("src", `image/13.png`);
-  } else if(weatherIcon === "10d" || "10n"){
+  } else if(weatherIcon === "09n"){
+    icon.setAttribute("src", `image/13.png`);
+  } else if(weatherIcon === "10d"){
     icon.setAttribute("src", `image/5.png`);
-  } else if(weatherIcon === "11d" || "11n"){
+  } else if(weatherIcon === "10n"){
+    icon.setAttribute("src", `image/5.png`);
+  } else if(weatherIcon === "11d"){
     icon.setAttribute("src", `image/2.png`);
-  } else if(weatherIcon === "13d" || "13n"){
+  } else if(weatherIcon === "11n"){
+    icon.setAttribute("src", `image/2.png`);
+  } else if(weatherIcon === "13d"){
     icon.setAttribute("src", `image/3.png`);
-  } else if(weatherIcon === "50d" || "50n"){
+  } else if(weatherIcon === "13n"){
+    icon.setAttribute("src", `image/3.png`);
+  } else if(weatherIcon === "50d"){
+    icon.setAttribute("src", `image/12.png`);
+  } else if(weatherIcon === "50n"){
     icon.setAttribute("src", `image/12.png`);
   } 
+  
   icon.setAttribute("alt", response.data.weather[0].description);
   console.log(response.data.weather[0].description);
   
