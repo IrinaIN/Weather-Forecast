@@ -1,8 +1,5 @@
 // caurrent data
 let currentDay = document.querySelector(".item__time");
-let currentShortDay = document.querySelector("#current-day");
-let currentShortDate = document.querySelector("#current-date");
-
 let now = new Date();
 let days = [
   "Sunday",
@@ -47,11 +44,6 @@ let time = getTime(now);
 let nowDate = `${day}_${month} ${date}_ ${time}`;
 currentDay.innerHTML = nowDate;
 
-let nowShortDay = `${day}`;
-currentShortDay.innerHTML = nowShortDay;
-
-let nowShortDate = `${shortMonth} ${date}`;
-currentShortDate.innerHTML = nowShortDate;
 
 // day-night backgraund
 let body = document.querySelector("body");
@@ -87,11 +79,7 @@ function displayForecast (){
 
 // hourly forecast
 function displayForecastTime (){
-  let forecastTimeElement = document.querySelector("#forecast-time-one");
-  let forecastTimeElementTwo = document.querySelector("#forecast-time-two");
-  let forecastTimeElementThree = document.querySelector("#forecast-time-three");
-  let forecastTimeElementFour = document.querySelector("#forecast-time-four");
-  let forecastTimeElementFive = document.querySelector("#forecast-time-five");
+  let forecastTimeElements = document.querySelectorAll(".forecast-time");
   let forecastTimeHTML = `<div class="days__row">`;
   let forecastTimes = ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
   forecastTimes.forEach(function(forecastTime){
@@ -119,11 +107,9 @@ function displayForecastTime (){
       </div>`;
     });
   forecastTimeHTML = forecastTimeHTML + `</div>`;
-  forecastTimeElement.innerHTML = forecastTimeHTML;
-  forecastTimeElementTwo.innerHTML = forecastTimeHTML;
-  forecastTimeElementThree.innerHTML = forecastTimeHTML;
-  forecastTimeElementFour.innerHTML = forecastTimeHTML;
-  forecastTimeElementFive.innerHTML = forecastTimeHTML;
+  forecastTimeElements.forEach(function(forecastTimeElement){
+    forecastTimeElement.innerHTML = forecastTimeHTML;
+  })
 };
 displayForecast();
 displayForecastTime();
