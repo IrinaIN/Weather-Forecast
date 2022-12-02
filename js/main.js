@@ -53,8 +53,9 @@ if (now.getHours() > 7 && now.getHours() < 20) {
   body.style.background = "url(image/11.png)";
 }
 
-// weather forecast
-function displayForecast (){
+// weather forecast structure
+function displayForecast (response){
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="weather_days__row">`;
   let forecastDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -75,9 +76,10 @@ function displayForecast (){
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
+  addActive ();
 };
 
-// hourly forecast
+// hourly forecast srtucture
 function displayForecastTime (){
   let forecastTimeElements = document.querySelectorAll(".forecast-time");
   let forecastTimeHTML = `<div class="days__row">`;
@@ -111,46 +113,18 @@ function displayForecastTime (){
     forecastTimeElement.innerHTML = forecastTimeHTML;
   })
 };
-displayForecast();
-displayForecastTime();
 
-// active tab
-onload = function addActive (){
-  let firstItem = document.querySelector(".weather_days__item");
-  firstItem.classList.add("active");
-  let allItems = document.querySelectorAll(".weather_days__item");
-  for (let i=0; i<allItems.length; i++){
-    let item = allItems[i];
-    console.log(item);
-    let value = i + 1;
-    item.setAttribute("data-tab-name", `tab-${value}`)
-  };
-};
 
-let tab = function () {
-  let tabNav = document.querySelectorAll(".weather_days__item"),
-    tabContent = document.querySelectorAll(".days"),
-    tabName;
-  tabNav.forEach((item) => {
-    item.addEventListener("click", selectTabNav);
-  });
-  function selectTabNav() {
-    tabNav.forEach((item) => {
-      item.classList.remove("active");
-    });
-    this.classList.add("active");
-    tabName = this.getAttribute("data-tab-name");
-    selectTabContent(tabName);
-  }
-  function selectTabContent(tabName) {
-    tabContent.forEach((item) => {
-      item.classList.contains(tabName)
-        ? item.classList.add("active")
-        : item.classList.remove("active");
-    });
-  }
-};
-tab();
+// get weather forecast
+
+function getForecast (coordinates) {
+  console.log(coordinates);
+  let units = "metric";
+  let apiKey = "97c2f6a3b34509ac62090edc5d18d949";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
 
 // show current position temperature & temp conversion
 
@@ -246,6 +220,9 @@ function weatherCondition(response) {
   }
   let linkC = document.querySelector("#celsius");
   linkC.addEventListener("click", convertToC);
+
+  getForecast(response.data.coord);
+  displayForecastTime();
 }
 
 // search city & temperature input
@@ -287,3 +264,41 @@ let currentLocationButton = document.querySelector(".search__current");
 currentLocationButton.addEventListener("click", getCurrentLocation);
 
 searchCity("Kyiv");
+
+// active tab
+function addActive (){
+  let firstItem = document.querySelector(".weather_days__item");
+  firstItem.classList.add("active");
+  let allItems = document.querySelectorAll(".weather_days__item");
+  for (let i=0; i<allItems.length; i++){
+    let item = allItems[i];
+    console.log(item);
+    let value = i + 1;
+    item.setAttribute("data-tab-name", `tab-${value}`)
+  };
+  tab();
+};
+
+let tab = function () {
+  let tabNav = document.querySelectorAll(".weather_days__item"),
+    tabContent = document.querySelectorAll(".days"),
+    tabName;
+  tabNav.forEach((item) => {
+    item.addEventListener("click", selectTabNav);
+  });
+  function selectTabNav() {
+    tabNav.forEach((item) => {
+      item.classList.remove("active");
+    });
+    this.classList.add("active");
+    tabName = this.getAttribute("data-tab-name");
+    selectTabContent(tabName);
+  }
+  function selectTabContent(tabName) {
+    tabContent.forEach((item) => {
+      item.classList.contains(tabName)
+        ? item.classList.add("active")
+        : item.classList.remove("active");
+    });
+  }
+};
