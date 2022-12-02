@@ -61,7 +61,86 @@ if (now.getHours() > 7 && now.getHours() < 20) {
   body.style.background = "url(image/11.png)";
 }
 
+// weather forecast
+function displayForecast (){
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="weather_days__row">`;
+  let forecastDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  forecastDays.forEach(function(forecastDay){
+    forecastHTML = forecastHTML + 
+    `<div class="weather_days__column">
+    <div class="weather_days__item">
+        <div class="weather_days__day">
+          <p id="current-day">${forecastDay}</p>
+          <p id="current-date">Oct 17</p>
+        </div>
+        <div class="weather_days__emoji">
+          <img src="image/8.png" alt="">
+        </div>
+        <div class="weather_days__degree">16° 7°</div>
+    </div>
+  </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+};
+
+// hourly forecast
+function displayForecastTime (){
+  let forecastTimeElement = document.querySelector("#forecast-time-one");
+  let forecastTimeElementTwo = document.querySelector("#forecast-time-two");
+  let forecastTimeElementThree = document.querySelector("#forecast-time-three");
+  let forecastTimeElementFour = document.querySelector("#forecast-time-four");
+  let forecastTimeElementFive = document.querySelector("#forecast-time-five");
+  let forecastTimeHTML = `<div class="days__row">`;
+  let forecastTimes = ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
+  forecastTimes.forEach(function(forecastTime){
+    forecastTimeHTML = forecastTimeHTML + 
+      `<div class="days__column">
+        <div class="days__item">
+          <div class="days___time">${forecastTime}</div>
+          <div class="days__body">
+            <div class="body__row">
+              <div class="body__column">
+                <div class="body__emoji"><i class="fa-solid fa-temperature-half"></i></div>
+                <div class="body__emoji">💧</div>
+                <div class="body__emoji"><i class="fa-solid fa-wind"></i></div>
+                <div class="body__emoji"><i class="fa-solid fa-cloud"></i></div>
+              </div>
+              <div class="body__column">
+                <div class="body__dagree">11°</div>
+                <div class="body__humidity">10%</div>
+                <div class="body__wind">11 <br> km/h</div>
+                <div class="body__rain">11%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+  forecastTimeHTML = forecastTimeHTML + `</div>`;
+  forecastTimeElement.innerHTML = forecastTimeHTML;
+  forecastTimeElementTwo.innerHTML = forecastTimeHTML;
+  forecastTimeElementThree.innerHTML = forecastTimeHTML;
+  forecastTimeElementFour.innerHTML = forecastTimeHTML;
+  forecastTimeElementFive.innerHTML = forecastTimeHTML;
+};
+displayForecast();
+displayForecastTime();
+
 // active tab
+onload = function addActive (){
+  let firstItem = document.querySelector(".weather_days__item");
+  firstItem.classList.add("active");
+  let allItems = document.querySelectorAll(".weather_days__item");
+  for (let i=0; i<allItems.length; i++){
+    let item = allItems[i];
+    console.log(item);
+    let value = i + 1;
+    item.setAttribute("data-tab-name", `tab-${value}`)
+  };
+};
+
 let tab = function () {
   let tabNav = document.querySelectorAll(".weather_days__item"),
     tabContent = document.querySelectorAll(".days"),

@@ -400,7 +400,7 @@ body{
 }
 @media(max-width:767px){
 	.body__emoji {
-		padding: 10% 0 30% 25%;
+		padding: 10% 0 20% 25%;
 	}
 }
 .body__emoji:last-child {
@@ -421,14 +421,6 @@ body{
 	padding: 10% 10% 15% 0;
 	align-items: start;
 	color: #1E4162;
-}
-@media(max-width:767px){
-	.body__dagree,
-	.body__humidity,
-	.body__wind,
-	.body__rain {
-		padding: 10% 10% 20% 0;
-	}
 }
 
 .footer__row {
