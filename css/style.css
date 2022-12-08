@@ -299,6 +299,9 @@ body{
 		font-weight: 700;
 	}
 }
+.weather_days__day p:first-child{
+	margin-bottom: 3%;
+}
 .weather_days__emoji {
 	flex: 0 0 50px;
 	margin-left: 20%;
