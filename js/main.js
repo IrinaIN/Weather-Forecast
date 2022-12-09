@@ -150,43 +150,58 @@ function displayForecast (response){
 
 
 // hourly forecast srtucture
+function forecastHours (timestamp){
+  let now = new Date(timestamp);
+  let hours = now.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}:${minutes}`;
+}
 
-function displayForecastTime (){
+function displayForecastTime (response){
+  forecastTimes = response.data.list;
+  console.log(response.data.list);
   let forecastTimeElements = document.querySelectorAll(".forecast-time");
   let forecastTimeHTML = `<div class="days__row">`;
-  let forecastTimes = ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
-  forecastTimes.forEach(function(forecastTime){
-    forecastTimeHTML = forecastTimeHTML + 
-      `<div class="days__column">
-        <div class="days__item">
-          <div class="days___time">${forecastTime}</div>
-          <div class="days__body">
-            <div class="body__row">
-              <div class="body__column">
-                <div class="body__emoji"><i class="fa-solid fa-temperature-half"></i></div>
-                <div class="body__emoji">💧</div>
-                <div class="body__emoji"><i class="fa-solid fa-wind"></i></div>
-                <div class="body__emoji"><i class="fa-solid fa-cloud"></i></div>
-              </div>
-              <div class="body__column">
-                <div class="body__dagree">11°</div>
-                <div class="body__humidity">10%</div>
-                <div class="body__wind">11 <br> km/h</div>
-                <div class="body__rain">11%</div>
+  forecastTimes.forEach(function(forecastTime, index){
+      if (index <8){
+        forecastTimeHTML = forecastTimeHTML + 
+          `<div class="days__column">
+            <div class="days__item">
+              <div class="days___time">${forecastHours(forecastTime.dt_txt)}</div>
+              <div class="days__body">
+                <div class="body__row">
+                  <div class="body__column">
+                    <div class="body__emoji"><i class="fa-solid fa-temperature-half"></i></div>
+                    <div class="body__emoji">💧</div>
+                    <div class="body__emoji"><i class="fa-solid fa-wind"></i></div>
+                    <div class="body__emoji"><i class="fa-solid fa-cloud"></i></div>
+                  </div>
+                  <div class="body__column">
+                    <div class="body__dagree">${Math.round(forecastTime.main.temp)}°</div>
+                    <div class="body__humidity">${Math.round(forecastTime.main.humidity)}%</div>
+                    <div class="body__wind">${Math.round(forecastTime.wind.speed)}<br>km/h</div>
+                    <div class="body__rain">${Math.round(forecastTime.clouds.all)}%</div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>`;
+          </div>`;
+      }
     });
   forecastTimeHTML = forecastTimeHTML + `</div>`;
   forecastTimeElements.forEach(function(forecastTimeElement){
-    forecastTimeElement.innerHTML = forecastTimeHTML;
+  forecastTimeElement.innerHTML = forecastTimeHTML;
   })
 };
 
 
-// get weather forecast
+// get daily weather forecast
 
 function getForecast (coordinates) {
   console.log(coordinates);
@@ -195,6 +210,17 @@ function getForecast (coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
+}
+
+// get hourly weather forecast
+
+function getForecastHourly (coordinates) {
+  console.log(coordinates);
+  let units = "metric";
+  let apiKey = "97c2f6a3b34509ac62090edc5d18d949";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecastTime);
 }
 
 
@@ -234,7 +260,7 @@ function weatherCondition(response) {
   )} %</strong>`;
 
   getForecast(response.data.coord);
-  displayForecastTime();
+  getForecastHourly(response.data.coord);
 
   let icon = document.querySelector("#icon");
   let weatherIcon = response.data.weather[0].icon;
@@ -297,8 +323,6 @@ function weatherCondition(response) {
   }
   let linkC = document.querySelector("#celsius");
   linkC.addEventListener("click", convertToC);
-
-  
 }
 
 // search city & temperature input
