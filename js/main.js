@@ -76,48 +76,6 @@ function formatTime (timestamp) {
   let date = now.getDate();
   return `${months[month]} ${date}`;
 }
-/*
-function getIcon (response) {
-  let weatherIcon = response.data.daily.weather[0].icon;
-  if (weatherIcon === "01d"){
-    icon = `image/8.png`;
-  } else if(weatherIcon === "01n"){
-    icon = `image/9.png`;
-  } else if(weatherIcon === "02d"){
-    icon = `image/6.png`;
-  } else if(weatherIcon === "02n"){
-    icon = `image/4.png`;
-  } else if(weatherIcon === "03d"){
-    icon = `image/1.png`;
-  } else if(weatherIcon === "03n"){
-    icon = `image/1.png`;
-  } else if(weatherIcon === "04d"){
-    icon = `image/1.png`;
-  } else if(weatherIcon === "04n"){
-    icon = `image/1.png`;
-  } else if(weatherIcon === "09d"){
-    icon = `image/13.png`;
-  } else if(weatherIcon === "09n"){
-    icon = `image/13.png`;
-  } else if(weatherIcon === "10d"){
-    icon = `image/5.png`;
-  } else if(weatherIcon === "10n"){
-    icon = `image/5.png`;
-  } else if(weatherIcon === "11d"){
-    icon = `image/2.png`;
-  } else if(weatherIcon === "11n"){
-    icon = `image/2.png`;
-  } else if(weatherIcon === "13d"){
-    icon = `image/3.png`;
-  } else if(weatherIcon === "13n"){
-    icon = `image/3.png`;
-  } else if(weatherIcon === "50d"){
-    icon = `image/12.png`;
-  } else if(weatherIcon === "50n"){
-    icon = `image/12.png`;
-  } 
-}
-*/
 
 function displayForecast (response){
   console.log(response.data.daily);
@@ -146,7 +104,7 @@ function displayForecast (response){
       let weatherIcon = forecastDay.weather[0].icon;
       console.log(weatherIcon);
       if (weatherIcon === "01d"){
-        icon = "image/8.png";
+        icon = `image/8.png`;
       } else if(weatherIcon === "01n"){
         icon = `image/9.png`;
       } else if(weatherIcon === "02d"){
@@ -182,56 +140,14 @@ function displayForecast (response){
       } else if(weatherIcon === "50n"){
         icon = `image/12.png`;
       }
+      return icon;
     }
-    
-    /*
-    let weatherIcon = forecastDay.weather[0].icon;
-    console.log(weatherIcon);
-    if (weatherIcon === "01d"){
-      icon.setAttribute("src", `image/8.png`);
-    } else if(weatherIcon === "01n"){
-      icon.setAttribute("src", `image/9.png`);
-    } else if(weatherIcon === "02d"){
-      icon.setAttribute("src", `image/6.png`);
-    } else if(weatherIcon === "02n"){
-      icon.setAttribute("src", `image/4.png`);
-    } else if(weatherIcon === "03d"){
-      icon.setAttribute("src", `image/1.png`);
-    } else if(weatherIcon === "03n"){
-      icon.setAttribute("src", `image/1.png`);
-    } else if(weatherIcon === "04d"){
-      icon.setAttribute("src", `image/1.png`);
-    } else if(weatherIcon === "04n"){
-      icon.setAttribute("src", `image/1.png`);
-    } else if(weatherIcon === "09d"){
-      icon.setAttribute("src", `image/13.png`);
-    } else if(weatherIcon === "09n"){
-      icon.setAttribute("src", `image/13.png`);
-    } else if(weatherIcon === "10d"){
-      icon.setAttribute("src", `image/5.png`);
-    } else if(weatherIcon === "10n"){
-      icon.setAttribute("src", `image/5.png`);
-    } else if(weatherIcon === "11d"){
-      icon.setAttribute("src", `image/2.png`);
-    } else if(weatherIcon === "11n"){
-      icon.setAttribute("src", `image/2.png`);
-    } else if(weatherIcon === "13d"){
-      icon.setAttribute("src", `image/3.png`);
-    } else if(weatherIcon === "13n"){
-      icon.setAttribute("src", `image/3.png`);
-    } else if(weatherIcon === "50d"){
-      icon.setAttribute("src", `image/12.png`);
-    } else if(weatherIcon === "50n"){
-      icon.setAttribute("src", `image/12.png`);
-    } */
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
   addActive ();
 };
 
-/*
-<img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="">*/
 
 // hourly forecast srtucture
 
