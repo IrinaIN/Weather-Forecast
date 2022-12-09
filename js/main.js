@@ -148,7 +148,6 @@ function displayForecast (response){
   addActive ();
 };
 
-
 // hourly forecast srtucture
 function forecastHours (timestamp){
   let now = new Date(timestamp);
@@ -166,6 +165,7 @@ function forecastHours (timestamp){
 function displayForecastTime (response){
   forecastTimes = response.data.list;
   console.log(response.data.list);
+  
   let forecastTimeElements = document.querySelectorAll(".forecast-time");
   let forecastTimeHTML = `<div class="days__row">`;
   forecastTimes.forEach(function(forecastTime, index){
@@ -197,7 +197,13 @@ function displayForecastTime (response){
   forecastTimeHTML = forecastTimeHTML + `</div>`;
   forecastTimeElements.forEach(function(forecastTimeElement){
   forecastTimeElement.innerHTML = forecastTimeHTML;
-  })
+  });
+  /*let dayContents = document.querySelectorAll(".days");
+  for (let i=0; i<dayContents.length; i++){
+    let dayContent = dayContents[i];
+    dayContent.innerHTML = forecastTimeHTML(index+8);
+    console.log(dayContent);
+  }*/
 };
 
 
@@ -262,6 +268,7 @@ function weatherCondition(response) {
   getForecast(response.data.coord);
   getForecastHourly(response.data.coord);
 
+
   let icon = document.querySelector("#icon");
   let weatherIcon = response.data.weather[0].icon;
   if (weatherIcon === "01d"){
@@ -303,26 +310,6 @@ function weatherCondition(response) {
   } 
   icon.setAttribute("alt", response.data.weather[0].description);
   console.log(response.data.weather[0].description);
-  
-  function convertToF(event) {
-    event.preventDefault();
-    let updateToFah = document.querySelector(".item__value");
-    updateToFah.innerHTML = Math.round((temperature * 9) / 5) + 32;
-    linkC.classList.remove("active");
-    linkF.classList.add("active");
-  }
-  let linkF = document.querySelector("#fahrenhait");
-  linkF.addEventListener("click", convertToF);
-
-  function convertToC(event) {
-    event.preventDefault();
-    let celsius = document.querySelector(".item__value");
-    celsius.innerHTML = temperature;
-    linkC.classList.add("active");
-    linkF.classList.remove("active");
-  }
-  let linkC = document.querySelector("#celsius");
-  linkC.addEventListener("click", convertToC);
 }
 
 // search city & temperature input

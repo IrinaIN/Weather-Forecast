@@ -187,10 +187,6 @@ body{
 		font-size: 14px;
 	}
 }
-.item__units.active{
-	color: #073b68;
-	cursor: default;	
-}
 .item__city {
 	color: #29669C;
 	font-size: 56px;
