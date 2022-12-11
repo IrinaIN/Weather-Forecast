@@ -1,6 +1,6 @@
 // caurrent data
-function formatDate (timestamp) {
-  let now = new Date(); 
+function formatDate(timestamp) {
+  let now = new Date();
   let days = [
     "Sunday",
     "Monday",
@@ -8,9 +8,9 @@ function formatDate (timestamp) {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
-  let day = days[now.getDay(timestamp*1000)];
+  let day = days[now.getDay(timestamp * 1000)];
   let months = [
     "January",
     "February",
@@ -23,7 +23,7 @@ function formatDate (timestamp) {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
   let month = months[now.getMonth()];
   let date = now.getDate();
@@ -38,10 +38,9 @@ function formatDate (timestamp) {
   return `${day}_${month} ${date}_ ${hours}:${minutes}`;
 }
 
-
 // weather forecast structure
 
-function formatDay (timestamp) {
+function formatDay(timestamp) {
   let now = new Date(timestamp * 1000);
   let day = now.getDay();
   let days = [
@@ -51,13 +50,13 @@ function formatDay (timestamp) {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
   return days[day];
 }
 
-function formatTime (timestamp) {
-  let now = new Date(timestamp*1000);
+function formatTime(timestamp) {
+  let now = new Date(timestamp * 1000);
   let month = now.getMonth();
   let months = [
     "Jan",
@@ -71,21 +70,22 @@ function formatTime (timestamp) {
     "Sep",
     "Oct",
     "Nov",
-    "Dec"
+    "Dec",
   ];
   let date = now.getDate();
   return `${months[month]} ${date}`;
 }
 
-function displayForecast (response){
+function displayForecast(response) {
   console.log(response.data.daily);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="weather_days__row">`;
-  forecast.forEach(function(forecastDay, index){
-    if (index <5){
-      forecastHTML = forecastHTML + 
-      `<div class="weather_days__column">
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="weather_days__column">
       <div class="weather_days__item">
           <div class="weather_days__day">
             <p id="current-day">${formatDay(forecastDay.dt)}</p>
@@ -94,50 +94,52 @@ function displayForecast (response){
           <div class="weather_days__emoji">
           <img src="${getIcon(response)}" alt="">
           </div>
-          <div class="weather_days__degree">${Math.round(forecastDay.temp.max)}° ${Math.round(forecastDay.temp.min)}°</div>
+          <div class="weather_days__degree">${Math.round(
+            forecastDay.temp.max
+          )}° ${Math.round(forecastDay.temp.min)}°</div>
       </div>
     </div>`;
     }
-    
-    function getIcon (response) {
+
+    function getIcon(response) {
       console.log(response.data.daily);
       let weatherIcon = forecastDay.weather[0].icon;
       console.log(weatherIcon);
-      if (weatherIcon === "01d"){
+      if (weatherIcon === "01d") {
         icon = `image/8.png`;
-      } else if(weatherIcon === "01n"){
+      } else if (weatherIcon === "01n") {
         icon = `image/9.png`;
-      } else if(weatherIcon === "02d"){
+      } else if (weatherIcon === "02d") {
         icon = `image/6.png`;
-      } else if(weatherIcon === "02n"){
+      } else if (weatherIcon === "02n") {
         icon = `image/4.png`;
-      } else if(weatherIcon === "03d"){
+      } else if (weatherIcon === "03d") {
         icon = `image/1.png`;
-      } else if(weatherIcon === "03n"){
+      } else if (weatherIcon === "03n") {
         icon = `image/1.png`;
-      } else if(weatherIcon === "04d"){
+      } else if (weatherIcon === "04d") {
         icon = `image/1.png`;
-      } else if(weatherIcon === "04n"){
+      } else if (weatherIcon === "04n") {
         icon = "image/1.png";
-      } else if(weatherIcon === "09d"){
+      } else if (weatherIcon === "09d") {
         icon = `image/13.png`;
-      } else if(weatherIcon === "09n"){
+      } else if (weatherIcon === "09n") {
         icon = `image/13.png`;
-      } else if(weatherIcon === "10d"){
+      } else if (weatherIcon === "10d") {
         icon = `image/5.png`;
-      } else if(weatherIcon === "10n"){
+      } else if (weatherIcon === "10n") {
         icon = `image/5.png`;
-      } else if(weatherIcon === "11d"){
+      } else if (weatherIcon === "11d") {
         icon = `image/2.png`;
-      } else if(weatherIcon === "11n"){
+      } else if (weatherIcon === "11n") {
         icon = `image/2.png`;
-      } else if(weatherIcon === "13d"){
+      } else if (weatherIcon === "13d") {
         icon = `image/3.png`;
-      } else if(weatherIcon === "13n"){
+      } else if (weatherIcon === "13n") {
         icon = `image/3.png`;
-      } else if(weatherIcon === "50d"){
+      } else if (weatherIcon === "50d") {
         icon = `image/12.png`;
-      } else if(weatherIcon === "50n"){
+      } else if (weatherIcon === "50n") {
         icon = `image/12.png`;
       }
       return icon;
@@ -145,11 +147,11 @@ function displayForecast (response){
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  addActive ();
-};
+  addActive();
+}
 
 // hourly forecast srtucture
-function forecastHours (timestamp){
+function forecastHours(timestamp) {
   let now = new Date(timestamp);
   let hours = now.getHours();
   if (hours < 10) {
@@ -162,18 +164,27 @@ function forecastHours (timestamp){
   return `${hours}:${minutes}`;
 }
 
-function displayForecastTime (response){
+let forecastTimes = null;
+
+function displayForecastTime(response) {
   forecastTimes = response.data.list;
   console.log(response.data.list);
-  
+
+  buildForecastTime(0);
+}
+
+function buildForecastTime(startIndex) {
   let forecastTimeElements = document.querySelectorAll(".forecast-time");
   let forecastTimeHTML = `<div class="days__row">`;
-  forecastTimes.forEach(function(forecastTime, index){
-      if (index <8){
-        forecastTimeHTML = forecastTimeHTML + 
-          `<div class="days__column">
+  forecastTimes.forEach(function (forecastTime, index) {
+    if (index >= startIndex && index < startIndex + 8) {
+      forecastTimeHTML =
+        forecastTimeHTML +
+        `<div class="days__column">
             <div class="days__item">
-              <div class="days___time">${forecastHours(forecastTime.dt_txt)}</div>
+              <div class="days___time">${forecastHours(
+                forecastTime.dt_txt
+              )}</div>
               <div class="days__body">
                 <div class="body__row">
                   <div class="body__column">
@@ -183,20 +194,28 @@ function displayForecastTime (response){
                     <div class="body__emoji"><i class="fa-solid fa-cloud"></i></div>
                   </div>
                   <div class="body__column">
-                    <div class="body__dagree">${Math.round(forecastTime.main.temp)}°</div>
-                    <div class="body__humidity">${Math.round(forecastTime.main.humidity)}%</div>
-                    <div class="body__wind">${Math.round(forecastTime.wind.speed)}<br>km/h</div>
-                    <div class="body__rain">${Math.round(forecastTime.clouds.all)}%</div>
+                    <div class="body__dagree">${Math.round(
+                      forecastTime.main.temp
+                    )}°</div>
+                    <div class="body__humidity">${Math.round(
+                      forecastTime.main.humidity
+                    )}%</div>
+                    <div class="body__wind">${Math.round(
+                      forecastTime.wind.speed
+                    )}<br>km/h</div>
+                    <div class="body__rain">${Math.round(
+                      forecastTime.clouds.all
+                    )}%</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>`;
-      }
-    });
+    }
+  });
   forecastTimeHTML = forecastTimeHTML + `</div>`;
-  forecastTimeElements.forEach(function(forecastTimeElement){
-  forecastTimeElement.innerHTML = forecastTimeHTML;
+  forecastTimeElements.forEach(function (forecastTimeElement) {
+    forecastTimeElement.innerHTML = forecastTimeHTML;
   });
   /*let dayContents = document.querySelectorAll(".days");
   for (let i=0; i<dayContents.length; i++){
@@ -204,12 +223,11 @@ function displayForecastTime (response){
     dayContent.innerHTML = forecastTimeHTML(index+8);
     console.log(dayContent);
   }*/
-};
-
+}
 
 // get daily weather forecast
 
-function getForecast (coordinates) {
+function getForecast(coordinates) {
   console.log(coordinates);
   let units = "metric";
   let apiKey = "97c2f6a3b34509ac62090edc5d18d949";
@@ -220,7 +238,7 @@ function getForecast (coordinates) {
 
 // get hourly weather forecast
 
-function getForecastHourly (coordinates) {
+function getForecastHourly(coordinates) {
   console.log(coordinates);
   let units = "metric";
   let apiKey = "97c2f6a3b34509ac62090edc5d18d949";
@@ -228,7 +246,6 @@ function getForecastHourly (coordinates) {
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForecastTime);
 }
-
 
 // show current position temperature & temp conversion
 
@@ -247,9 +264,9 @@ function weatherCondition(response) {
 
   mainTemp.innerHTML = temperature;
   itemCity.innerHTML = yourLocation;
-  if (yourLocation.length > 7){
+  if (yourLocation.length > 7) {
     console.log(yourLocation);
-    itemCity.style["font-size"] = '42px';
+    itemCity.style["font-size"] = "42px";
   }
 
   let description = document.querySelector("#detail-temp");
@@ -268,46 +285,45 @@ function weatherCondition(response) {
   getForecast(response.data.coord);
   getForecastHourly(response.data.coord);
 
-
   let icon = document.querySelector("#icon");
   let weatherIcon = response.data.weather[0].icon;
-  if (weatherIcon === "01d"){
+  if (weatherIcon === "01d") {
     icon.setAttribute("src", `image/8.png`);
-  } else if(weatherIcon === "01n"){
+  } else if (weatherIcon === "01n") {
     icon.setAttribute("src", `image/9.png`);
-  } else if(weatherIcon === "02d"){
+  } else if (weatherIcon === "02d") {
     icon.setAttribute("src", `image/6.png`);
-  } else if(weatherIcon === "02n"){
+  } else if (weatherIcon === "02n") {
     icon.setAttribute("src", `image/4.png`);
-  } else if(weatherIcon === "03d"){
+  } else if (weatherIcon === "03d") {
     icon.setAttribute("src", `image/1.png`);
-  } else if(weatherIcon === "03n"){
+  } else if (weatherIcon === "03n") {
     icon.setAttribute("src", `image/1.png`);
-  } else if(weatherIcon === "04d"){
+  } else if (weatherIcon === "04d") {
     icon.setAttribute("src", `image/1.png`);
-  } else if(weatherIcon === "04n"){
+  } else if (weatherIcon === "04n") {
     icon.setAttribute("src", `image/1.png`);
-  } else if(weatherIcon === "09d"){
+  } else if (weatherIcon === "09d") {
     icon.setAttribute("src", `image/13.png`);
-  } else if(weatherIcon === "09n"){
+  } else if (weatherIcon === "09n") {
     icon.setAttribute("src", `image/13.png`);
-  } else if(weatherIcon === "10d"){
+  } else if (weatherIcon === "10d") {
     icon.setAttribute("src", `image/5.png`);
-  } else if(weatherIcon === "10n"){
+  } else if (weatherIcon === "10n") {
     icon.setAttribute("src", `image/5.png`);
-  } else if(weatherIcon === "11d"){
+  } else if (weatherIcon === "11d") {
     icon.setAttribute("src", `image/2.png`);
-  } else if(weatherIcon === "11n"){
+  } else if (weatherIcon === "11n") {
     icon.setAttribute("src", `image/2.png`);
-  } else if(weatherIcon === "13d"){
+  } else if (weatherIcon === "13d") {
     icon.setAttribute("src", `image/3.png`);
-  } else if(weatherIcon === "13n"){
+  } else if (weatherIcon === "13n") {
     icon.setAttribute("src", `image/3.png`);
-  } else if(weatherIcon === "50d"){
+  } else if (weatherIcon === "50d") {
     icon.setAttribute("src", `image/12.png`);
-  } else if(weatherIcon === "50n"){
+  } else if (weatherIcon === "50n") {
     icon.setAttribute("src", `image/12.png`);
-  } 
+  }
   icon.setAttribute("alt", response.data.weather[0].description);
   console.log(response.data.weather[0].description);
 }
@@ -339,7 +355,7 @@ function showPosition(position) {
   let units = "metric";
   let url = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrl = `${url}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
- 
+
   axios.get(apiUrl).then(weatherCondition);
 }
 
@@ -353,18 +369,18 @@ currentLocationButton.addEventListener("click", getCurrentLocation);
 searchCity("Kyiv");
 
 // active tab
-function addActive (){
+function addActive() {
   let firstItem = document.querySelector(".weather_days__item");
   firstItem.classList.add("active");
   let allItems = document.querySelectorAll(".weather_days__item");
-  for (let i=0; i<allItems.length; i++){
+  for (let i = 0; i < allItems.length; i++) {
     let item = allItems[i];
     console.log(item);
     let value = i + 1;
-    item.setAttribute("data-tab-name", `tab-${value}`)
-  };
+    item.setAttribute("data-tab-name", `tab-${value}`);
+  }
   tab();
-};
+}
 
 let tab = function () {
   let tabNav = document.querySelectorAll(".weather_days__item"),
@@ -382,18 +398,21 @@ let tab = function () {
     selectTabContent(tabName);
   }
   function selectTabContent(tabName) {
-    tabContent.forEach((item) => {
-      item.classList.contains(tabName)
-        ? item.classList.add("active")
-        : item.classList.remove("active");
+    tabContent.forEach((item, index) => {
+      if (item.classList.contains(tabName)) {
+        item.classList.add("active");
+        buildForecastTime(index);
+      } else {
+        item.classList.remove("active");
+      }
     });
   }
 };
 
 // day-night backgraund
-function changeBackground () {
+function changeBackground() {
   let body = document.querySelector("body");
-  let now = new Date(); 
+  let now = new Date();
   if (now.getHours() > 7 && now.getHours() < 20) {
     body.style.background = "url(image/10.png)";
   } else {
