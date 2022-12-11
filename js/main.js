@@ -401,7 +401,7 @@ let tab = function () {
     tabContent.forEach((item, index) => {
       if (item.classList.contains(tabName)) {
         item.classList.add("active");
-        buildForecastTime(index);
+        buildForecastTime(index * 8);
       } else {
         item.classList.remove("active");
       }
